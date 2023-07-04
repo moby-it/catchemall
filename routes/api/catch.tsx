@@ -9,7 +9,6 @@ export const handler: Handlers = {
       PokemonList.parse(JSON.parse(caughtList));
       return new Response(caughtList);
     } catch (e) {
-      console.warn(e);
       return new Response('[]', { headers: [["content-type", "application/json"]] });
     }
   },
@@ -24,7 +23,7 @@ export const handler: Handlers = {
       await Deno.writeTextFile(filepath, JSON.stringify(caught));
       return new Response(JSON.stringify(caught));
     } catch (e) {
-      console.error(e);
+      console.log("no caught file. Creating one....")
       const caught = [body];
       await Deno.writeTextFile(filepath, JSON.stringify(caught), { create: true });
       return new Response(JSON.stringify(caught));
